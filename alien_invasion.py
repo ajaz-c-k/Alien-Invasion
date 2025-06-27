@@ -7,6 +7,7 @@ from ship import Ship
 from bullet import Bullet
 from alien import Alien
 from button import Button
+from scoreboard import Scoreboard
 
 
 class AlienInvasion:
@@ -28,6 +29,7 @@ class AlienInvasion:
 
         # Create an instance to store game statistics
         self.stats = GameStats(self)
+        self.sb=Scoreboard(self)
 
         # Initialize ship, bullets, and alien groups
         self.ship = Ship(self)
@@ -36,6 +38,7 @@ class AlienInvasion:
 
         # Create the initial alien fleet
         self._create_fleet()
+        
 
         # Make the Play button.
         self.play_button = Button(self, "Play")
@@ -66,6 +69,7 @@ class AlienInvasion:
         """Start a new game when the player clicks Play."""
         button_clicked=self.play_button.rect.collidepoint(mouse_pos)
         if button_clicked and not self.stats.game_active:
+            self.settings.initialize_dynamic_settings()
             self.stats.reset_stats()
             self.stats.game_active = True
             pygame.mouse.set_visible(False)
@@ -88,6 +92,8 @@ class AlienInvasion:
             sys.exit()
         elif event.key == pygame.K_SPACE:
             self._fire_bullet()
+        elif event.key== pygame.K_ESCAPE:
+            sys.exit()
 
     def _check_keyup_events(self, event):
         """Respond to key releases."""
@@ -124,6 +130,7 @@ class AlienInvasion:
         if not self.aliens:
             self.bullets.empty()
             self._create_fleet()
+            self.settings.increase_speed()
 
     def _create_fleet(self):
         """Create the fleet of aliens."""
@@ -159,6 +166,8 @@ class AlienInvasion:
             bullet.draw_bullet()
         
         self.aliens.draw(self.screen)
+
+        self.sb.show_score()
 
         # Draw the play button if the game is inactive.
         if not self.stats.game_active:
