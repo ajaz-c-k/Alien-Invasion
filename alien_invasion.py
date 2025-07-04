@@ -74,6 +74,7 @@ class AlienInvasion:
             self.stats.game_active = True
             self.sb.prep_score()
             self.sb.prep_level()
+            self.sb.prep_ships()
             pygame.mouse.set_visible(False)
 
             #get rid of remaining aliens and bullets
@@ -221,6 +222,7 @@ class AlienInvasion:
 
             # Decrement ships_left.
             self.stats.ships_left -= 1
+            self.sb.prep_ships()
 
             # Get rid of any remaining aliens and bullets.
             self.aliens.empty()
