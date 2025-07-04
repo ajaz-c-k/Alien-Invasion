@@ -72,6 +72,7 @@ class AlienInvasion:
             self.settings.initialize_dynamic_settings()
             self.stats.reset_stats()
             self.stats.game_active = True
+            self.sb.prep_score()
             pygame.mouse.set_visible(False)
 
             #get rid of remaining aliens and bullets
@@ -125,6 +126,11 @@ class AlienInvasion:
         collisions = pygame.sprite.groupcollide(
             self.bullets, self.aliens, True, True
         )
+
+        if collisions:
+            for aliens in collisions.values():
+                self.stats.score+=self.settings.alien_points*len(aliens)
+            self.sb.prep_score()
 
         # If all aliens are destroyed, recreate the fleet
         if not self.aliens:
