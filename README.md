@@ -1,12 +1,4 @@
-Here is your **updated, clean `README.md`** specifically aligned with:
 
-✅ Your **current Alien Invasion Pygame project**
-✅ Your **VS Code workflow** (as shown in your image)
-✅ **Persistent `high_score.json` integration** (now included)
-
----
-
-````
 # 🚀 Alien Invasion
 
 A **Space Invaders-style game** built using **Pygame**, showcasing clean object-oriented architecture, collision detection, and dynamic gameplay progression while tracking score, level, and high scores persistently.
